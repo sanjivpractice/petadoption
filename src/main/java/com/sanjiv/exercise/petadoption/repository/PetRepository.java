@@ -48,6 +48,14 @@ public class PetRepository {
 
     }
 
+    public List<Pet> getPetsBySearchCriteria(SearchCriteria criteria) {
+        Set<Integer> resultingPetIds = null;
+
+
+        return null;
+    }
+
+
 
     private void indexPetBySearchTypes(Pet pet) {
         List<String> searchTypeValues = searchTypeProcessor.getPetSearchTypeValues(pet);
