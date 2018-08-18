@@ -55,9 +55,7 @@ public class PetAdoptionRunner implements ApplicationRunner {
         Iterable<CSVRecord> records = CSVFormat.DEFAULT
                 .withFirstRecordAsHeader().parse(in);
         for (CSVRecord record : records) {
-            String id = record.get("Id");
-            logger.info("CSVRecord: {}", record);
-            logger.info("id: {}", id);
+            logger.debug("CSVRecord: {}", record);
             Pet pet = new Pet(Integer.parseInt(record.get("Id")),
                               record.get("Name"),
                               record.get("Type"),
