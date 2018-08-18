@@ -46,4 +46,29 @@ public class PetRepositoryTest {
         Assert.assertEquals(4, pets.size());
 
     }
+
+
+    @Test
+    public void testSearchAllDogsIn_97205_ZipCode_ShouldReturnTwoDogs() {
+        PetRepository petRepository = PetFactory.buildPetRepository(searchTypeProcessor);
+
+        List<Pet> pets = petRepository.getPetsBySearchCriteria(new SearchCriteria(Lists.newArrayList(
+                new SearchCriterion(SearchLogicalOp.AND, "97205"),
+                new SearchCriterion(SearchLogicalOp.AND, "dog"))));
+        Assert.assertEquals(2, pets.size());
+        logger.info("pets: {}",  pets);
+
+    }
+
+    @Test
+    public void testSearchAllPetsThatAreIn_97205_ZipCode_Or_EitherRabbitShouldReturnFivePets() {
+        PetRepository petRepository = PetFactory.buildPetRepository(searchTypeProcessor);
+
+        List<Pet> pets = petRepository.getPetsBySearchCriteria(new SearchCriteria(Lists.newArrayList(
+                new SearchCriterion(SearchLogicalOp.AND, "97205"),
+                new SearchCriterion(SearchLogicalOp.OR, "rabbit"))));
+        Assert.assertEquals(5, pets.size());
+        logger.info("pets: {}",  pets);
+
+    }
 }
