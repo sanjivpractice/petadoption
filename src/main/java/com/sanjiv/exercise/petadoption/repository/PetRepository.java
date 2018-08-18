@@ -1,15 +1,12 @@
 package com.sanjiv.exercise.petadoption.repository;
 
-import static com.sanjiv.exercise.petadoption.model.PetSearchType.PET_GENDER;
-import static com.sanjiv.exercise.petadoption.model.PetSearchType.PET_TYPE;
-import static com.sanjiv.exercise.petadoption.model.PetSearchType.ZIPCODE;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sanjiv.exercise.petadoption.model.Pet;
 import com.sanjiv.exercise.petadoption.model.PetSearchType;
@@ -19,8 +16,15 @@ import com.sanjiv.exercise.petadoption.model.PetSearchType;
  */
 public class PetRepository {
 
+    private final SearchTypeProcessor searchTypeProcessor;
 
     private Map<Integer, Pet> indexToPetMap = new HashMap<>();
+
+
+    @Autowired
+    public PetRepository(SearchTypeProcessor searchTypeProcessor) {
+        this.searchTypeProcessor = searchTypeProcessor;
+    }
 
     public Map<Integer, Pet> getIndexToPetMap() {
         return indexToPetMap;
@@ -40,21 +44,13 @@ public class PetRepository {
     public void addPet(Pet pet) {
         indexToPetMap.put(pet.getId(), pet);
 
-        List<String> searchTypeValues = new ArrayList<>();
+        indexPetBySearchTypes(pet);
 
-        for (PetSearchType petSearchType : PetSearchType.values()) {
-            switch (petSearchType) {
-                case ZIPCODE:
-                    searchTypeValues.add(ZIPCODE.name() + pet.getZipcode());
-                    break;
-                case PET_TYPE:
-                    searchTypeValues.add(PET_TYPE.name() + pet.getType());
-                    break;
-                case PET_GENDER:
-                    searchTypeValues.add(PET_GENDER.name() + pet.getGender());
-                    break;
-            }
-        }
+    }
+
+
+    private void indexPetBySearchTypes(Pet pet) {
+        List<String> searchTypeValues = searchTypeProcessor.getPetSearchTypeValues(pet);
 
         for(String petSearchType : searchTypeValues) {
             if (!searchTypeToIdMap.containsKey(petSearchType)) {
@@ -67,23 +63,7 @@ public class PetRepository {
             System.out.println("petIds: "+ petIds);
         }
 
-        buildSearchCriteriaLookupMap(pet);
+        searchTypeProcessor.buildSearchCriteriaLookupMap(pet);
     }
 
-    private void buildSearchCriteriaLookupMap(Pet pet) {
-
-        for(PetSearchType petSearchType : PetSearchType.values()) {
-            switch (petSearchType) {
-                case ZIPCODE:
-                    petSearchTypeValueMap.put(pet.getZipcode(), ZIPCODE);
-                    break;
-                case PET_TYPE:
-                    petSearchTypeValueMap.put(pet.getType(), PET_TYPE);
-                    break;
-                case PET_GENDER:
-                    petSearchTypeValueMap.put(pet.getGender(), PET_GENDER);
-                    break;
-            }
-        }
-    }
 }

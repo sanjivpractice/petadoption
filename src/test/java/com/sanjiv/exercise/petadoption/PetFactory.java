@@ -2,13 +2,14 @@ package com.sanjiv.exercise.petadoption;
 
 import com.sanjiv.exercise.petadoption.model.Pet;
 import com.sanjiv.exercise.petadoption.repository.PetRepository;
+import com.sanjiv.exercise.petadoption.repository.SearchTypeProcessor;
 
 /**
  * @author Sanjiv on 8/17/18.
  */
 public class PetFactory {
 
-    public static PetRepository buildPetRepository() {
+    public static PetRepository buildPetRepository(SearchTypeProcessor searchTypeProcessor) {
         Pet pet1 = new Pet(1, "snoopy", "dog", "male", "97205");
 
         Pet pet2 = new Pet(2, "Wilow", "cat", "female", "97205");
@@ -19,7 +20,7 @@ public class PetFactory {
         Pet pet7 = new Pet(7, "Lese", "rabbit", "female", "97215");
         Pet pet8 = new Pet(8, "Rascal", "dog", "male", "97205");
 
-        PetRepository petRepository = new PetRepository();
+        PetRepository petRepository = new PetRepository(searchTypeProcessor);
         petRepository.addPet(pet1);
         petRepository.addPet(pet2);
         petRepository.addPet(pet3);
