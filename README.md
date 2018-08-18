@@ -35,5 +35,7 @@ IT tests:
 #ALTERNATIVE APPROACHES:
 
     1) Inmemory db like H2 would have worked quite well for this but db was not an option in this exercise
-    2) Using json representation of the Pet data (in a pet array represented in json) would have allowed me to use the JsonPath to query the daya but that is not very performant which is why I went with the HashMap based storage
+    2) Using json representation of the Pet data (in a pet array represented in json) would have allowed
+       me to use the JsonPath to query the data but that is not very performant which is why I went with
+       the HashMap based storage
 
