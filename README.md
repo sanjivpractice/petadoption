@@ -8,7 +8,9 @@ mvn clean package
 java -jar target/petadoption-0.0.1-SNAPSHOT.jar --inputData=<Input csv filename> <searchType1> <Logical OP AND|OR 1> <<searchType2>. . . <Logical OP AND|OR N> <<searchTypeN>
 
 e.g:
-java -jar target/petadoption-0.0.1-SNAPSHOT.jar --inputData=petData.csv dog AND spayed
+java -jar target/petadoption-0.0.1-SNAPSHOT.jar --inputData=/Users/Sanjiv/dev/gitrepos/petadoption/src/main/resources/petadoption.csv dog AND spayed
+java -jar target/petadoption-0.0.1-SNAPSHOT.jar --inputData=/Users/Sanjiv/dev/gitrepos/petadoption/src/main/resources/petadoption.csv dog AND 97205
+java -jar target/petadoption-0.0.1-SNAPSHOT.jar --inputData=/Users/Sanjiv/dev/gitrepos/petadoption/src/main/resources/petadoption.csv dog OR cat
 
 
 #Assumptions
