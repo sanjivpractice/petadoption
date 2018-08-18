@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.sanjiv.exercise.petadoption.model.Pet;
 import com.sanjiv.exercise.petadoption.model.PetSearchType;
@@ -17,6 +18,8 @@ import com.sanjiv.exercise.petadoption.model.PetSearchType;
 /**
  * @author Sanjiv on 8/17/18.
  */
+
+@Service
 public class PetRepository {
 
     private final SearchTypeProcessor searchTypeProcessor;
