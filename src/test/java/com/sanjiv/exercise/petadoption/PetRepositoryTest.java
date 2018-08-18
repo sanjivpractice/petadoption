@@ -20,7 +20,6 @@ import com.sanjiv.exercise.petadoption.repository.SearchTypeProcessor;
  * @author Sanjiv on 8/17/18.
  */
 public class PetRepositoryTest {
-
     private static Logger logger = LoggerFactory.getLogger(PetRepositoryTest.class);
     private SearchTypeProcessor searchTypeProcessor;
 
@@ -31,7 +30,7 @@ public class PetRepositoryTest {
     }
 
     @Test
-    public void tesAddAndRetrievePet_HappyPath() {
+    public void tesAddAndRetrievePet() {
         PetRepository petRepository = PetFactory.buildPetRepository(searchTypeProcessor);
 
         List<Pet> pets = petRepository.getPetsBySearchCriteria(new SearchCriteria(Lists.newArrayList(new SearchCriterion(
@@ -44,9 +43,7 @@ public class PetRepositoryTest {
 
         pets = petRepository.getPetsBySearchCriteria(new SearchCriteria(Lists.newArrayList(new SearchCriterion(SearchLogicalOp.AND, "dog"))));
         Assert.assertEquals(4, pets.size());
-
     }
-
 
     @Test
     public void testSearchAllDogsIn_97205_ZipCode_ShouldReturnTwoDogs() {
@@ -108,4 +105,16 @@ public class PetRepositoryTest {
 
     }
 
+    @Test
+    public void testSearchAllPetsThatAreDog_Or_Cat_And_Spayed_ShouldReturn_Two_Pets() {
+        PetRepository petRepository = PetFactory.buildPetRepository(searchTypeProcessor);
+
+        List<Pet> pets = petRepository.getPetsBySearchCriteria(new SearchCriteria(Lists.newArrayList(
+                new SearchCriterion(SearchLogicalOp.AND, "dog"),
+                new SearchCriterion(SearchLogicalOp.OR, "cat"),
+                new SearchCriterion(SearchLogicalOp.AND, "spayed"))));
+        Assert.assertEquals(2, pets.size());
+        logger.info("pets: {}",  pets);
+
+    }
 }
