@@ -59,4 +59,8 @@ public class SearchTypeProcessor {
             }
         }
     }
+
+    public PetSearchType lookupPetSearchType(String searchTypeValue) {
+        return petSearchTypeValueMap.get(searchTypeValue);
+    }
 }

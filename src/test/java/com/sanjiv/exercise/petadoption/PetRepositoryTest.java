@@ -1,13 +1,19 @@
 package com.sanjiv.exercise.petadoption;
 
-import static org.junit.Assert.assertEquals;
+import java.util.List;
 
+import org.assertj.core.util.Lists;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.sanjiv.exercise.petadoption.model.Pet;
 import com.sanjiv.exercise.petadoption.repository.PetRepository;
+import com.sanjiv.exercise.petadoption.repository.SearchCriteria;
+import com.sanjiv.exercise.petadoption.repository.SearchCriterion;
+import com.sanjiv.exercise.petadoption.repository.SearchLogicalOp;
 import com.sanjiv.exercise.petadoption.repository.SearchTypeProcessor;
 
 /**
@@ -25,10 +31,19 @@ public class PetRepositoryTest {
     }
 
     @Test
-    public void tesAddPets() {
+    public void tesAddAndRetrievePet_HappyPath() {
         PetRepository petRepository = PetFactory.buildPetRepository(searchTypeProcessor);
 
-        assertEquals(8, petRepository.getIndexToPetMap().size());
+        List<Pet> pets = petRepository.getPetsBySearchCriteria(new SearchCriteria(Lists.newArrayList(new SearchCriterion(
+                SearchLogicalOp.AND, "97205"))));
+        Assert.assertEquals(3, pets.size());
+        logger.info("pets: {}",  pets);
+
+        pets = petRepository.getPetsBySearchCriteria(new SearchCriteria(Lists.newArrayList(new SearchCriterion(SearchLogicalOp.AND, "male"))));
+        Assert.assertEquals(2, pets.size());
+
+        pets = petRepository.getPetsBySearchCriteria(new SearchCriteria(Lists.newArrayList(new SearchCriterion(SearchLogicalOp.AND, "dog"))));
+        Assert.assertEquals(4, pets.size());
 
     }
 }
