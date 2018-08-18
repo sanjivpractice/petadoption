@@ -8,6 +8,7 @@ mvn clean package
 java -jar target/petadoption-0.0.1-SNAPSHOT.jar --inputData=<Input csv filename> <searchType1> <Logical OP AND|OR 1> <<searchType2>. . . <Logical OP AND|OR N> <<searchTypeN>
 
 e.g:
+
 java -jar target/petadoption-0.0.1-SNAPSHOT.jar --inputData=/Users/Sanjiv/dev/gitrepos/petadoption/src/main/resources/petadoption.csv dog AND spayed
 java -jar target/petadoption-0.0.1-SNAPSHOT.jar --inputData=/Users/Sanjiv/dev/gitrepos/petadoption/src/main/resources/petadoption.csv dog AND 97205
 java -jar target/petadoption-0.0.1-SNAPSHOT.jar --inputData=/Users/Sanjiv/dev/gitrepos/petadoption/src/main/resources/petadoption.csv dog OR cat
@@ -23,8 +24,11 @@ java -jar target/petadoption-0.0.1-SNAPSHOT.jar --inputData=/Users/Sanjiv/dev/gi
 5)
 
 #Testing
-## Unit tests: quite a few unit tests (within the allowed time) have been written that tests various happy path and negative/boundary conditions
-## IT tests:
+
+Unit tests: 
+Quite a few unit tests (within the allowed time) have been written that tests various happy path and negative/boundary conditions
+
+IT tests:
    - For integration tests I would use Junit again in this case to instantiate the PetAdoptionRunner (with appropriate args) and let it run all the way through.
    - Another option is to add a quick rest controller and have an IT which specifies input through the rest controller and assert the result
 
