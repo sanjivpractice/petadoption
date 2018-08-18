@@ -71,7 +71,7 @@ public class PetRepositoryTest {
         logger.info("pets: {}",  pets);
 
     }
-    
+
     @Test
     public void testSearchAllPetsThatAreRabbit_And_In_97205_ZipCode_ShouldReturn_NO_Pets() {
         PetRepository petRepository = PetFactory.buildPetRepository(searchTypeProcessor);
@@ -84,5 +84,28 @@ public class PetRepositoryTest {
 
     }
 
+
+    @Test
+    public void testNonExistentPetShouldResultInNoPetBeingReturned() {
+        PetRepository petRepository = PetFactory.buildPetRepository(searchTypeProcessor);
+
+        List<Pet> pets = petRepository.getPetsBySearchCriteria(new SearchCriteria(Lists.newArrayList(
+                new SearchCriterion(SearchLogicalOp.AND, "mouse"))));
+        Assert.assertEquals(0, pets.size());
+        logger.info("pets: {}",  pets);
+
+    }
+
+    @Test
+    public void tesNonExistentZipCodeShouldResultInNoPetBeingReturned() {
+        PetRepository petRepository = PetFactory.buildPetRepository(searchTypeProcessor);
+
+        List<Pet> pets = petRepository.getPetsBySearchCriteria(new SearchCriteria(Lists.newArrayList(
+                new SearchCriterion(SearchLogicalOp.AND, "dog"),
+                new SearchCriterion(SearchLogicalOp.AND, "75034"))));
+        Assert.assertEquals(0, pets.size());
+        logger.info("pets: {}",  pets);
+
+    }
 
 }
