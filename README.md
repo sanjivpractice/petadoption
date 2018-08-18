@@ -32,7 +32,8 @@ IT tests:
    - For integration tests I would use Junit again in this case to instantiate the PetAdoptionRunner (with appropriate args) and let it run all the way through.
    - Another option is to add a quick rest controller and have an IT which specifies input through the rest controller and assert the result
 
-ALTERNATIVE APPROACHES:
+#ALTERNATIVE APPROACHES:
+
     1) Inmemory db like H2 would have worked quite well for this but db was not an option in this exercise
     2) Using json representation of the Pet data (in a pet array represented in json) would have allowed me to use the JsonPath to query the daya but that is not very performant which is why I went with the HashMap based storage
 
