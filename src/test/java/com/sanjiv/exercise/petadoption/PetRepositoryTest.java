@@ -71,4 +71,18 @@ public class PetRepositoryTest {
         logger.info("pets: {}",  pets);
 
     }
+    
+    @Test
+    public void testSearchAllPetsThatAreRabbit_And_In_97205_ZipCode_ShouldReturn_NO_Pets() {
+        PetRepository petRepository = PetFactory.buildPetRepository(searchTypeProcessor);
+
+        List<Pet> pets = petRepository.getPetsBySearchCriteria(new SearchCriteria(Lists.newArrayList(
+                new SearchCriterion(SearchLogicalOp.OR, "rabbit"),
+                new SearchCriterion(SearchLogicalOp.AND, "97205"))));
+        Assert.assertEquals(0, pets.size());
+        logger.info("pets: {}",  pets);
+
+    }
+
+
 }
