@@ -1,14 +1,19 @@
 package com.sanjiv.exercise.petadoption.commandline;
 
+import java.io.FileReader;
+import java.io.Reader;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import com.sanjiv.exercise.petadoption.model.Pet;
 import com.sanjiv.exercise.petadoption.repository.PetRepository;
@@ -25,6 +30,8 @@ public class PetAdoptionRunner implements ApplicationRunner {
     private final SearchCriteriaBuilder searchCriteriaBuilder;
     private final PetRepository petRepository;
 
+    public static final String INPUT_DATA_ARG_NAME = "inputData";
+
     @Autowired
     public PetAdoptionRunner(SearchCriteriaBuilder searchCriteriaBuilder, PetRepository petRepository) {
         this.searchCriteriaBuilder = searchCriteriaBuilder;
@@ -34,12 +41,35 @@ public class PetAdoptionRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         logArgInfo(args);
-        buildPetRepository();
+        //buildPetRepository();
+
+        List<String> optionValues = args.getOptionValues(INPUT_DATA_ARG_NAME);
+        if (CollectionUtils.isEmpty(optionValues)) {
+            throw new RuntimeException("Error: input data csv file not specified.  Cannot continue.");
+        }
+
+        String inputCsvFilename = optionValues.get(0);
+
+        // TODO: Use try with resources to close the reader.
+        Reader in = new FileReader(inputCsvFilename);
+        Iterable<CSVRecord> records = CSVFormat.DEFAULT
+                .withFirstRecordAsHeader().parse(in);
+        for (CSVRecord record : records) {
+            String id = record.get("Id");
+            logger.info("CSVRecord: {}", record);
+            logger.info("id: {}", id);
+            Pet pet = new Pet(Integer.parseInt(record.get("Id")),
+                              record.get("Name"),
+                              record.get("Type"),
+                              record.get("Gender"),
+                              record.get("ZipCode"));
+            petRepository.addPet(pet);
+        }
+
         SearchCriteria searchCriteria = searchCriteriaBuilder.buildSearchCriteria(args);
 
-
         List<Pet> petsBySearchCriteria = petRepository.getPetsBySearchCriteria(searchCriteria);
-        logger.info(String.valueOf(petsBySearchCriteria));
+        logger.info("\n\nPets search result:\n------------------\n{}", String.valueOf(petsBySearchCriteria));
     }
 
     private void buildPetRepository() {
