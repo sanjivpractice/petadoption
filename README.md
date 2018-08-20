@@ -1,7 +1,9 @@
 # petadoption
 pet adoption exercise
 
-#Build - to build run the following command
+# Build T
+To build run the following command
+
 mvn clean package
 
 ## Run the app with command line args
