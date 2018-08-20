@@ -18,9 +18,10 @@ java -jar target/petadoption-0.0.1-SNAPSHOT.jar --inputData=/Users/Sanjiv/dev/gi
 
 ## Assumptions
 1) input csv file would be specified with full path
-2) only AND and OR operators are specified. NOT operator currently is not supported.
-3) First line in the csv file will be a header file
-4) Only simple combination is supported.  Grouped combination is not supported
+2) input csv file is assumed to be free or errors
+3) only AND and OR operators are supported. NOT operator currently is not supported.
+4) First line in the csv file will be a header file
+5) Only simple combination is supported.  Grouped combination is not supported
    e.g:
    (dog AND spayed) OR (cat AND spayed)  is Not supported
 
@@ -37,6 +38,5 @@ Quite a few unit tests (within the allowed time) have been written that tests va
 
     1) Inmemory db like H2 would have worked quite well for this but db was not an option in this exercise
     2) Using json representation of the Pet data (in a pet array represented in json) would have allowed
-       me to use the JsonPath to query the data but that is not very performant which is why I went with
-       the HashMap based storage
+       me to use the JsonPath to query the data(a more sophisticated query mechanism than what I have) but that is not very performant which is why I went with the HashMap based storage
 
