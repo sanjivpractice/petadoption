@@ -1,7 +1,7 @@
 # petadoption
 pet adoption exercise
 
-# Build T
+# Build
 To build run the following command
 
 mvn clean package
@@ -13,7 +13,7 @@ e.g:
 
 java -jar target/petadoption-0.0.1-SNAPSHOT.jar --inputData=/Users/Sanjiv/dev/gitrepos/petadoption/src/main/resources/petadoption.csv dog AND spayed
 java -jar target/petadoption-0.0.1-SNAPSHOT.jar --inputData=/Users/Sanjiv/dev/gitrepos/petadoption/src/main/resources/petadoption.csv dog AND 97205
-java -jar target/petadoption-0.0.1-SNAPSHOT.jar --inputData=/Users/Sanjiv/dev/gitrepos/petadoption/src/main/resources/petadoption.csv dog OR cat
+java -jar target/petadoption-0.0.1-SNAPSHOT.jar --inputData=/Users/Sanjiv/dev/gitrepos/petadoption/src/main/resources/petadoption.csv dog OR cat AND spayed
 
 
 ## Assumptions
