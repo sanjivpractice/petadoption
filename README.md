@@ -2,11 +2,11 @@
 pet adoption exercise
 
 # Build
-To build execute the following command from the petadoption folder
+To build the artifact, execute the following command from the petadoption folder
 
 mvn clean package
 
-## Run the app with command line args
+## Run the app with command line args(from the petadoption folder).
 java -jar target/petadoption-0.0.1-SNAPSHOT.jar --inputData=<Input csv filename> <searchType1> <Logical OP AND|OR 1> <<searchType2>. . . <Logical OP AND|OR N> <<searchTypeN>
 
 e.g:
@@ -29,6 +29,7 @@ java -jar target/petadoption-0.0.1-SNAPSHOT.jar --inputData=/Users/Sanjiv/dev/gi
 
 ### Unit tests: 
 Quite a few unit tests (within the allowed time) have been written that tests various happy path and negative/boundary conditions for the core piece of functionality.  I would ideally target 100% code coverage - yes its possible using "Clean Code"  best practices.  Code coverage can be mainly used to see what areas of functionality or programming logoic have not been tested.  A hihger code coverage metric can also add to the level of confidence a team has in its codebase.  Also with future enhancements, bugfixes one can make sure that existing functionality is not broken. 
+     I prefer the use of the mocking lib called Mockito and not powermock or JMockit since it forces you to write CLEAN CODE.
 
 ### IT tests:
    - For integration tests I would use Junit again in this case to instantiate the PetAdoptionRunner (with appropriate args) and let it run all the way through.
