@@ -2,7 +2,7 @@
 pet adoption exercise
 
 # Build
-To build run the following command
+To build execute the following command from the petadoption folder
 
 mvn clean package
 
